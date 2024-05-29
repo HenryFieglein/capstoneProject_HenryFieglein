@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script type="text/javascript" src="venuePage.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    </head>
+    <body class="background">
+        <header class="header" id="header">
+            <div class="site-title">
+                <h1><a class="header_home" href="index.html">Majestic Event Planning</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html">RSVP</a>
+                    </li>
+                    <li>
+                        <a href="events.html">Public Events</a>
+                    </li>
+                    <li>
+                        <a href="venues.html">Venues</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="popup-back" id="pub"></div>
+            <div class="popup" id="popup-div">
+                <form class="create-form" id="new-venue-form">
+                    <h1>Create Your Venue</h1>
+                    <label for="venue-name-field"><b>Venue Name</b></label>
+                    <input type="text" required class="validated-field" id="venue-name-field">
+                    <label for="description-field"><b>Description</b></label>
+                    <textarea required class="validated-field" id="description-field"></textarea>
+                    <label for="address-field"><b>Address</b></label>
+                    <input type="text" required class="validated-field" id="address-field">
+                    <label for="status-field"><b>Status</b></label>
+                    <select required class="validated-field" id="status-field">
+                        <option value="AVAILABLE">Available</option>
+                        <option value="UNAVAILABLE">Unavailable</option>
+                    </select>
+                    <br>
+                    <label for="event-capacity-field"><b>Event Capacity</b></label>
+                    <input type="number" required class="validated-field" id="event-capacity-field">
+                    <label for="phone-field"><b>Phone Number (Not Required) (In Format xxx-xxx-xxxx)</b></label>
+                    <input type="tel" class="validated-field" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="phone-field">
+                    <label for="website-field"><b>Website (Not Required)</b></label>
+                    <input type="url" class="validated-field" id="website-field">
+                    <label for="email-field"><b>Email (Not Required)</b></label>
+                    <input type="email" class="validated-field" id="email-field">
+                    <button type="submit" onclick="hidePopup()">Create Venue</button>
+                    <button type="button" class="cancel-button" onclick="hidePopup()">Close</button>
+                </form>
+                <form class="update-form" id="update-venue-form">
+                    <h1>Update Your Venue</h1>
+                    <label for="update-id-field"><b>Venue Id</b></label>
+                    <input type="text" required class="validated-field" id="update-id-field">
+                    <button id="autofill">Autofill</button>
+                    <p id="autofillStatus"></p>
+                    <br>
+                    <label for="update-venue-name-field"><b>Venue Name</b></label>
+                    <input type="text" required class="validated-field" id="update-venue-name-field">
+                    <label for="update-description-field"><b>Description</b></label>
+                    <textarea required class="validated-field" id="update-description-field"></textarea>
+                    <label for="update-address-field"><b>Address</b></label>
+                    <input type="text" required class="validated-field" id="update-address-field">
+                    <label for="update-status-field"><b>Status</b></label>
+                    <select required class="validated-field" id="update-status-field">
+                        <option value="AVAILABLE">Available</option>
+                        <option value="UNAVAILABLE">Unavailable</option>
+                    </select>
+                    <br>
+                    <label for="update-event-capacity-field"><b>Event Capacity</b></label>
+                    <input type="number" required class="validated-field" id="update-event-capacity-field">
+                    <label for="update-phone-field"><b>Phone Number (Not Required) (In Format xxx-xxx-xxxx)</b></label>
+                    <input type="tel" class="validated-field" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="update-phone-field">
+                    <label for="update-website-field"><b>Website (Not Required)</b></label>
+                    <input type="url" class="validated-field" id="update-website-field">
+                    <label for="update-email-field"><b>Email (Not Required)</b></label>
+                    <input type="email" class="validated-field" id="update-email-field">
+                    <button type="submit" onclick="hidePopup()">Update Venue</button>
+                    <button type="button" class="cancel-button" onclick="hidePopup()">Close</button>
+                </form>
+                <form class="delete-form" id="delete-venue-form">
+                    <h1>Delete Your Venue</h1>
+                    <label for="delete-id-field"><b>Venue Id</b></label>
+                    <input type="text" required class="validated-field" id="delete-id-field">
+                    <button type="submit" onclick="hidePopup()">Delete Venue</button>
+                    <button type="button" class="cancel-button" onclick="hidePopup()">Close</button>
+                </form>
+            </div>
+            <p><input type="checkbox" id="onlyAvailable"> Show only available venues.</p>
+            <div class="venues" id="venues">
+                <input id="new-venue-button" type="button" value="Create New Venue" onclick="revealCreatePopup()">
+                <input id="update-venue-button" type="button" value="Update Existing Venue" onclick="revealUpdatePopup()">
+                <br>
+                <input id="delete-venue-button" type="button" value="Delete Venue" onclick="revealDeletePopup()">
+                <h1>Venues</h1>
+                <p id="venue-list">Loading...</p>
+            </div>
+        </main>
+    </body>
+    <script>
+        function revealCreatePopup() {
+            document.getElementById("update-venue-form").style.display = "none";
+            document.getElementById("delete-venue-form").style.display = "none";
+            document.getElementById("new-venue-form").style.display = "block";
+            let resultArea = document.getElementById("popup-div");
+            resultArea.style.display = "block";
+            document.getElementById("pub").style.display = "block";
+        }
+        function revealUpdatePopup() {
+            document.getElementById("new-venue-form").style.display = "none";
+            document.getElementById("delete-venue-form").style.display = "none";
+            document.getElementById("update-venue-form").style.display = "block";
+            let resultArea = document.getElementById("popup-div");
+            resultArea.style.display = "block";
+            document.getElementById("pub").style.display = "block";
+        }
+        function revealDeletePopup() {
+            document.getElementById("new-venue-form").style.display = "none";
+            document.getElementById("update-venue-form").style.display = "none";
+            document.getElementById("delete-venue-form").style.display = "block";
+            let resultArea = document.getElementById("popup-div");
+            resultArea.style.display = "block";
+            document.getElementById("pub").style.display = "block";
+        }
+        function hidePopup() {
+            let resultArea = document.getElementById("popup-div");
+            resultArea.style.display = "none";
+            document.getElementById("pub").style.display = "none";
+        }
+    </script>
+</html>

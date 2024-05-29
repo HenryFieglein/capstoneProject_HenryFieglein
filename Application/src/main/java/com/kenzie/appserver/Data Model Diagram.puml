@@ -1,0 +1,28 @@
+@startuml
+'file:///Users/candacem/Documents/Majestic%20Event%20Planning-%20data%20model%20Sequence%20diagram%20(2).pdf
+
+
+* Majestic Event Planning - data model Sequence diagram
+** Create a project plan
+*** Request Event
+*** Acknowledge
+** Get Event date
+*** Notify
+**** Selection of Event date Options
+**** Event Confirmation
+*** Get Venue
+*** Check Venue Availability
+** Provide Venue Options
+*** Select Venue
+*** Provide Venue details
+** Overview
+*** Get Event Details
+*** Get Event Budget
+*** Acknowledge
+** Send Invoice
+*** Receive Payment
+*** Plan Event at Venue
+** Notify with RSVP
+*** Execute Event at Venue
+** Receive Guest satisfaction
+@enduml

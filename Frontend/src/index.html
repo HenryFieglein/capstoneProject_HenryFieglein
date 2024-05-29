@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="examplePage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body class="background">
+    <header class="header" id="header">
+        <div class="site-title">
+            <a class="header_home" href="index.html"><h1>Majestic Event Planning</h1></a>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html">RSVP</a>
+                </li>
+                <li>
+                    <a href="events.html">Public Events</a>
+                </li>
+                <li>
+                    <a href="venues.html">Venues</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="card">
+        <h2>RSVP</h2>
+        <form class="card-content" id="create-form">
+            <p class="form-field">
+                <label>Event Id</label>
+                <input type="text" required class="validated-field" id="event-id-field">
+            </p>
+            <input type="button" value="Go To RSVP Page" onclick="redirect()">
+        </form>
+    </div>
+</body>
+<script>
+    function redirect() {
+        document.location = '/rsvp.html?id=' + document.getElementById("event-id-field").value;
+    }
+</script>
+</html>

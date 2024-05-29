@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script type="text/javascript" src="rsvpPage.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <title>RSVP</title>
+    </head>
+    <body class="background">
+        <header class="header" id="header">
+            <div class="site-title">
+                <h1><a class="header_home" href="index.html">Majestic Event Planning</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html">RSVP</a>
+                    </li>
+                    <li>
+                        <a href="events.html">Public Events</a>
+                    </li>
+                    <li>
+                        <a href="venues.html">Venues</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="popup-back" id="pub"></div>
+            <div class="popup" id="popup-div">
+                <form class="create-form" id="rsvp-form">
+                    <h1>Enter Your Name</h1>
+                    <label for="name-field"><b>Name</b></label>
+                    <input type="text" required class="validated-field" id="name-field">
+                    <button type="submit" onclick="hidePopup()">RSVP</button>
+                    <button type="button" class="cancel-button" onclick="hidePopup()">Close</button>
+                </form>
+            </div>
+            <div class="guests" id="guests">
+                <input id="rsvp-button" type="button" value="RSVP" onclick="revealPopup()">
+                <h1>Guests</h1>
+                <p id="guest-list">Loading...</p>
+            </div>
+        </main>
+    </body>
+    <script>
+        function revealPopup() {
+            let resultArea = document.getElementById("popup-div");
+            resultArea.style.display = "block";
+            document.getElementById("pub").style.display = "block";
+        }
+        function hidePopup() {
+            let resultArea = document.getElementById("popup-div");
+            resultArea.style.display = "none";
+            document.getElementById("pub").style.display = "none";
+        }
+    </script>
+</html>

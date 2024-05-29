@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script type="text/javascript" src="eventPage.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <title>Public Events</title>
+    </head>
+    <body class="background">
+        <header class="header" id="header">
+            <div class="site-title">
+                <h1><a class="header_home" href="index.html">Majestic Event Planning</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html">RSVP</a>
+                    </li>
+                    <li>
+                        <a href="events.html">Public Events</a>
+                    </li>
+                    <li>
+                        <a href="venues.html">Venues</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="popup-back" id="pub"></div>
+            <div class="popup" id="popup-div">
+                <form class="create-form" id="create-event-form">
+                    <h1>Create An Event</h1>
+                    <label for="create-event-name-field"><b>Event Name</b></label>
+                    <input type="text" required class="validated-field" id="create-event-name-field">
+                    <label for="create-venue-id-field"><b>Venue Id</b></label>
+                    <input type="text" class="validated-field" id="create-venue-id-field">
+                    <label for="create-description-field"><b>Description</b></label>
+                    <textarea required class="validated-field" id="create-description-field"></textarea>
+                    <label for="create-start-date-field"><b>Start Date</b></label>
+                    <input type="date" required class="validated-field" id="create-start-date-field">
+                    <label for="create-end-date-field"><b>End Date</b></label><br>
+                    <input type="date" required class="validated-field" id="create-end-date-field">
+                    <label for="create-category-field"><b>Category</b></label>
+                    <input type="text" required class="validated-field" id="create-category-field">
+                    <label for="create-username-field"><b>Username</b></label>
+                    <input type="text" required class="validated-field" id="create-username-field">
+                    <button type="submit" onclick="hidePopup()">Create</button>
+                    <button type="button" class="cancel-button" onclick="hidePopup()">Close</button>
+                </form>
+                <form class="update-form" id="update-event-form">
+                    <h1>Update Your Event</h1>
+                    <label for="update-id-field"><b>Event Id</b></label>
+                    <input type="text" required class="validated-field" id="update-id-field">
+                    <button id="autofill">Autofill</button>
+                    <p id="autofillStatus"></p>
+                    <br>
+                    <label for="update-event-name-field"><b>Event Name</b></label>
+                    <input type="text" required class="validated-field" id="update-event-name-field">
+                    <label for="update-venue-id-field"><b>Venue Id</b></label>
+                    <input type="text" class="validated-field" id="update-venue-id-field">
+                    <label for="update-description-field"><b>Description</b></label>
+                    <textarea required class="validated-field" id="update-description-field"></textarea>
+                    <label for="update-start-date-field"><b>Start Date</b></label>
+                    <input type="date" required class="validated-field" id="update-start-date-field"><br>
+                    <label for="update-end-date-field"><b>End Date</b></label>
+                    <input type="date" required class="validated-field" id="update-end-date-field">
+                    <label for="update-category-field"><b>Category</b></label>
+                    <input type="text" required class="validated-field" id="update-category-field">
+                    <label for="update-username-field"><b>Username</b></label>
+                    <input type="text" required class="validated-field" id="update-username-field">
+                    <button type="submit" onclick="hidePopup()">Update</button>
+                    <button type="button" class="cancel-button" onclick="hidePopup()">Close</button>
+                </form>
+                <form class="delete-form" id="delete-event-form">
+                    <h1>Delete Your Event</h1>
+                    <label for="update-id-field"><b>Event Id</b></label>
+                    <input type="text" required class="validated-field" id="delete-id-field">
+                    <button type="submit" onclick="hidePopup()">Delete</button>
+                    <button type="button" class="cancel-button" onclick="hidePopup()">Close</button>
+                </form>
+            </div>
+            <div class="public" id="public">
+                <button type="button" id="today-search">Get Events Today!</button>
+                <br>
+                <div class="search-bar" id="search-bar">
+                    <input id="search-bar-field" type="text">
+                    <br>
+                    <button type="button" id="id-search">Search By Event Id</button>
+                    <button type="button" id="venue-id-search">Search By Venue Id</button>
+                    <button type="button" id="event-name-search">Search By Event Name</button>
+                    <br>
+                    <button type="button" id="username-search">Search By Username</button>
+                    <button type="button" id="category-search">Search By Category</button>
+                    <button type="button" id="description-search">Search By Description</button>
+                    <br>
+                    <input type="date" id="date-search-field">
+                    <br>
+                    <button type="button" id="date-search">Search By Date</button>
+                </div>
+                <input id="create-button" type="button" value="Create Event" onclick="revealCreatePopup()">
+                <input id="update-button" type="button" value="Update Event" onclick="revealUpdatePopup()">
+                <br>
+                <input id="delete-button" type="button" value="Delete Event" onclick="revealDeletePopup()">
+                <h1>Events</h1>
+                <p id="public-events">Loading...</p>
+            </div>
+        </main>
+    </body>
+    <script>
+        function revealCreatePopup() {
+            document.getElementById("update-event-form").style.display = "none";
+            document.getElementById("delete-event-form").style.display = "none";
+            document.getElementById("create-event-form").style.display = "block";
+            let resultArea = document.getElementById("popup-div");
+            resultArea.style.display = "block";
+            document.getElementById("pub").style.display = "block";
+        }
+        function revealUpdatePopup() {
+            document.getElementById("create-event-form").style.display = "none";
+            document.getElementById("delete-event-form").style.display = "none";
+            document.getElementById("update-event-form").style.display = "block";
+            let resultArea = document.getElementById("popup-div");
+            resultArea.style.display = "block";
+            document.getElementById("pub").style.display = "block";
+        }
+        function revealDeletePopup() {
+            document.getElementById("create-event-form").style.display = "none";
+            document.getElementById("update-event-form").style.display = "none";
+            document.getElementById("delete-event-form").style.display = "block";
+            let resultArea = document.getElementById("popup-div");
+            resultArea.style.display = "block";
+            document.getElementById("pub").style.display = "block";
+        }
+        function hidePopup() {
+            let resultArea = document.getElementById("popup-div");
+            resultArea.style.display = "none";
+            document.getElementById("pub").style.display = "none";
+        }
+    </script>
+</html>
